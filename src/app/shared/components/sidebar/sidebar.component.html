@@ -1,0 +1,12 @@
+<!-- src/app/sidebar/sidebar.component.html -->
+<div [ngClass]="{'sidebar-open': isSidebarOpen, 'sidebar-closed': !isSidebarOpen}" class="sidebar">
+  <button (click)="toggleSidebar()" class="toggle-btn">
+    ☰
+  </button>
+  <div *ngFor="let item of menuItems" [ngClass]="{'active': activePath === item.path}">
+    <a [routerLink]="item.path">
+      <span class="icon">{{ item.icon }}</span>
+      <span class="name" *ngIf="isSidebarOpen">{{ item.name }}</span>
+    </a>
+  </div>
+</div>

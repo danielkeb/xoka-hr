@@ -1,0 +1,52 @@
+<div class="background-container">
+  <div class="content-container">
+    <div class="card shadow-lg">
+      <div class="card-header text-center bg-primary text-white">
+        <h3>Login</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input
+              id="email"
+              formControlName="email"
+              type="email"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback" *ngIf="email?.invalid && email?.touched">
+              Email is required and must be a valid email address.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input
+              id="password"
+              formControlName="password"
+              type="password"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback" *ngIf="password?.invalid && password?.touched">
+              Password is required.
+            </div>
+          </div>
+          <div class="d-grid gap-2 mt-3">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="loginForm.invalid"
+            >
+              Login
+            </button>
+          </div>
+          <div class="text-center mt-3">
+            <span>Don't have an account? </span>
+            <a routerLink="/register" class="btn btn-link">Sign Up</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

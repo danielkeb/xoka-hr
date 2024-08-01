@@ -1,0 +1,48 @@
+
+@media (max-width: 600px) {
+  .sidenav-container {
+    display: block;
+  }
+}
+#sidebar{
+  height: 90vh;
+  width: 200px;
+}
+.navbar-brand{
+  color: #e7dede;
+}
+.collapse{
+  background-color:antiquewhite;
+}
+.navbar-brand:hover{
+  color: #ffffff;
+}
+.navbar{
+  height: 100px;
+}
+a{
+  text-decoration: none;
+}
+.dropdown-menu {
+  padding: 0.5rem;
+  min-width: 150px; /* Adjust as needed */
+}
+.dropdown-item {
+  color: blue; /* You can use any color here */
+}
+
+.dropdown-item:hover {
+  color: darkblue; /* Optional: color change on hover */
+}
+
+a{
+  color: aqua;
+}
+
+.active-link {
+  color: green;
+}
+
+.inactive-link {
+  color: red;
+}

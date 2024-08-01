@@ -1,0 +1,126 @@
+import { Component, OnInit, inject } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
+// import { AppContextTsService } from '../services/app-context.service'; // Angular service equivalent to AppContext
+import { ListItem } from '../models/list-item.model'; // Create a ListItem model
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    RouterModule,
+    CommonModule, BrowserAnimationsModule
+  ],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  providers: [AppContextTsService],
+})
+export class DashboardComponent implements OnInit {
+  private router = inject(Router);
+  private appContext = inject(AppContextTsService);
+
+  public isOpen: boolean = true;
+  public activeIndex: number = 0;
+  public userRole: string = '';
+  public listItems: ListItem[] = [];
+
+  // ngOnInit(): void {
+  //   const decodedToken = this.appContext.decodedToken;
+  //   const token = this.appContext.token;
+
+  //   console.log('decodedToke', decodedToken);
+  //   console.log('token')
+
+  //   this.userRole = decodedToken?.role || '';
+  //   this.listItems = this.getListItems();
+
+  //   if (!token && !localStorage.getItem('token')) {
+  //     this.router.navigate(['/login']);
+  //   }
+
+  //   this.handleUnauthorizedAccess();
+  // }
+
+  getListItems(): ListItem[] {
+    const adminItems: ListItem[] = [
+      {
+        name: 'Dashboard',
+        href: '/dashboard',
+        icon: 'dashboard',
+      },
+      {
+        name: 'Employee',
+        href: '/dashboard/employee',
+        icon: 'people',
+      },
+    ];
+
+    const employeeItems: ListItem[] = [
+      {
+        name: 'Dashboard',
+        href: '/dashboard',
+        icon: 'dashboard',
+      },
+      {
+        name: 'Candidate',
+        href: '/dashboard/candidate',
+        icon: 'account_circle',
+      },
+      {
+        name: 'User',
+        href: '/dashboard/user',
+        icon: 'person',
+      },
+      {
+        name: 'Task',
+        href: '/dashboard/task',
+        icon: 'assignment',
+      },
+      {
+        name: 'Manage',
+        href: '/dashboard/user/manage',
+        icon: 'manage_accounts',
+      },
+      {
+        name: 'Position',
+        href: '/dashboard/position',
+        icon: 'work',
+      },
+    ];
+
+    return this.userRole === 'admin' ? adminItems : employeeItems;
+  }
+
+  handleUnauthorizedAccess(): void {
+    if (
+      (this.appContext.isAuthenticated &&
+        this.userRole !== 'admin' &&
+        this.router.url === '/dashboard/employee') ||
+      (this.appContext.isAuthenticated &&
+        this.userRole !== 'employee' &&
+        [
+          '/dashboard/user',
+          '/dashboard/user/manage',
+          '/dashboard/task',
+          '/dashboard/position',
+        ].includes(this.router.url))
+    ) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
+  onListItemClick(index: number, href: string): void {
+    this.activeIndex = index;
+    this.router.navigate([href]);
+  }
+}

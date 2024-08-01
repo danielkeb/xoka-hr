@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  mat-toolbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+  }
+  // register-user.component.scss
+
+mat-error {
+  color: red; // Change the error message text color to red
+  font-size: 0.875rem; // Optional: adjust the font size
+}
+
+  mat-sidenav {
+    width: 250px;
+  }
+  
+  mat-sidenav-content {
+    margin-left: 250px;
+    padding: 16px;
+  }
+  
+  .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }

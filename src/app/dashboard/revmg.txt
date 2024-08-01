@@ -1,0 +1,30 @@
+import { Component, ViewChild } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenav } from '@angular/material/sidenav';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [
+    RouterModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatListModule
+  ],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
+})
+export class DashboardComponent {
+  @ViewChild(MatSidenav) sidenav!: MatSidenav;
+
+  title = 'Dashboard';
+}

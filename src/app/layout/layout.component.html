@@ -1,0 +1,6 @@
+<!-- src/app/layout/layout.component.html -->
+<app-sidebar [isSidebarOpen]="isSidebarOpen"></app-sidebar>
+<app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
+<main class="content">
+  <router-outlet></router-outlet>
+</main>

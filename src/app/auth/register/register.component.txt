@@ -1,0 +1,240 @@
+<div class="registration-container container">
+  <h2>Register User</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          formControlName="firstName"
+          required
+          placeholder="First Name"
+        />
+        <div
+          *ngIf="registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched"
+          class="invalid-feedback"
+        >
+          First name is required
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastName"
+          formControlName="lastName"
+          required
+          placeholder="Last Name"
+        />
+        <div
+          *ngIf="registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched"
+          class="invalid-feedback"
+        >
+          Last name is required
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          formControlName="email"
+          required
+          placeholder="Email"
+        />
+        <div
+          *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched"
+          class="invalid-feedback"
+        >
+          Please enter a valid email
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          formControlName="password"
+          required
+          placeholder="Password"
+        />
+        <div
+          *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched"
+          class="invalid-feedback"
+        >
+          Password is required (min 6 characters)
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="role">Role</label>
+        <input
+          type="text"
+          class="form-control"
+          id="role"
+          formControlName="role"
+          required
+          placeholder="Role"
+        />
+        <div
+          *ngIf="registrationForm.get('role')?.invalid && registrationForm.get('role')?.touched"
+          class="invalid-feedback"
+        >
+          Role is required
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="image">Profile Image URL</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image"
+          formControlName="image"
+          placeholder="Image URL"
+        />
+        <div
+          *ngIf="registrationForm.get('image')?.invalid && registrationForm.get('image')?.touched"
+          class="invalid-feedback"
+        >
+          Please enter a valid image URL (jpg or png)
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="gender">Gender</label>
+        <select
+          class="form-control"
+          id="gender"
+          formControlName="gender"
+          required
+        >
+          <option *ngFor="let gender of genders" [value]="gender">
+            {{ gender }}
+          </option>
+        </select>
+        <div
+          *ngIf="registrationForm.get('gender')?.invalid && registrationForm.get('gender')?.touched"
+          class="invalid-feedback"
+        >
+          Gender is required
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="status">Status</label>
+        <select
+          class="form-control"
+          id="status"
+          formControlName="status"
+          required
+        >
+          <option *ngFor="let status of statuses" [value]="status">
+            {{ status }}
+          </option>
+        </select>
+        <div
+          *ngIf="registrationForm.get('status')?.invalid && registrationForm.get('status')?.touched"
+          class="invalid-feedback"
+        >
+          Status is required
+        </div>
+      </div>
+
+      
+
+   <!-- <div>
+    
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Date of Birth</mat-label>
+      <input matInput formControlName="dateOfBirth" [matDatepicker]="picker1" required />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+      <mat-error *ngIf="registrationForm.get('dateOfBirth')?.invalid && registrationForm.get('dateOfBirth')?.touched">
+        Date of birth is required
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Job ID</mat-label>
+        <input matInput formControlName="jobId" placeholder="Job ID" />
+        <mat-error *ngIf="registrationForm.get('jobId')?.invalid && registrationForm.get('jobId')?.touched">
+          Please enter a valid Job ID
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Salary ID</mat-label>
+        <input matInput formControlName="salaryId" placeholder="Salary ID" />
+        <mat-error *ngIf="registrationForm.get('salaryId')?.invalid && registrationForm.get('salaryId')?.touched">
+          Please enter a valid Salary ID
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Department ID</mat-label>
+        <input matInput formControlName="departmentId" placeholder="Department ID" />
+        <mat-error *ngIf="registrationForm.get('departmentId')?.invalid && registrationForm.get('departmentId')?.touched">
+          Please enter a valid Department ID
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="form-row">
+   
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Manager ID</mat-label>
+        <input matInput formControlName="managerId" placeholder="Manager ID" />
+        <mat-error *ngIf="registrationForm.get('managerId')?.invalid && registrationForm.get('managerId')?.touched">
+          Please enter a valid Manager ID
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Company ID</mat-label>
+        <input matInput formControlName="companyId" placeholder="Company ID" />
+        <mat-error *ngIf="registrationForm.get('companyId')?.invalid && registrationForm.get('companyId')?.touched">
+          Please enter a valid Company ID
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Resume URL</mat-label>
+        <input matInput formControlName="resume" placeholder="Resume URL" />
+        <mat-error *ngIf="registrationForm.get('resume')?.invalid && registrationForm.get('resume')?.touched">
+          Please enter a valid resume URL (pdf, doc, or docx)
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Hire Date</mat-label>
+        <input matInput formControlName="hireDate" [matDatepicker]="picker2" />
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Application Date</mat-label>
+      <input matInput formControlName="applicationDate" [matDatepicker]="picker3" />
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+    </div> -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="registrationForm.invalid">Register</button>
+  </form>
+</div>

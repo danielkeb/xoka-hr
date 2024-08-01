@@ -1,0 +1,8 @@
+<ng-container *ngFor="let item of LIST_ITEMS; let index = index">
+    <a [routerLink]="item.href" class="nav-link"
+       [ngClass]="{'bg-blue-500': activeIndex === index}">
+      <span [innerHTML]="item.icon"></span>
+      <span *ngIf="isOpen" class="ml-2">{{ item.name }}</span>
+    </a>
+  </ng-container>
+  

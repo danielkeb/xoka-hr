@@ -1,0 +1,36 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+  }
+  
+  .not-found-card {
+    max-width: 600px;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .not-found-icon {
+    font-size: 100px;
+    color: #ff5722;
+  }
+  
+  .not-found-title {
+    font-size: 72px;
+    margin: 20px 0;
+    color: #333;
+  }
+  
+  .not-found-message {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  a.mat-raised-button {
+    font-size: 16px;
+  }
+  

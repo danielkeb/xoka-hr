@@ -1,0 +1,38 @@
+.background-container {
+  position: relative;
+  width: 100%;
+  height: 100vh; // Full viewport height
+  background-image: url('/assets/images/login.jpg'); // Path from src/assets
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); // Dark overlay
+    backdrop-filter: blur(50px); // Blur effect
+    z-index: -1; // Ensure it stays behind the content
+  }
+
+  .content-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px; // Optional padding for responsiveness
+
+    .card {
+      width: 100%;
+      max-width: 500px; // Adjust width as needed
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Shadow for card
+    }
+  }
+}

@@ -1,0 +1,49 @@
+/* src/app/sidebar/sidebar.component.scss */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  overflow: auto;
+}
+
+.sidebar-open {
+  transform: translateX(0);
+}
+
+.sidebar-closed {
+  transform: translateX(-100%);
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  margin: 16px;
+}
+
+.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+a {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  text-decoration: none;
+  color: #333;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 16px;
+}
+
+.name {
+  font-size: 16px;
+}
