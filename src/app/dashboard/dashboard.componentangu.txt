@@ -40,4 +40,72 @@
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+
+
+
+  ///
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Dashboard</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mr-2">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="bi bi-person-circle me-2"></i>User
+        </a>
+        <div class="dropdown-menu p-2" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" routerLink="#">profile</a>
+         
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" routerLink="#">signout</a>
+        </div>
+      </li>
+     
+    </ul>
+  
+  </div>
+</nav>
+
+
+<!-- Side navigation drawer -->
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div class="bg-dark border-right " id="sidebar">
+    <!-- <div class="sidebar-header p-3">
+      <h4>Menu</h4>
+    </div> -->
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="btn btn-link active" routerLink="/dashbaord"  routerLinkActive="active">
+     Dashboard
+     
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-link" routerLink="/dashboard/employee" routerLinkActive="active">
+          Employee
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-link" routerLink="/dashboard/candidate" routerLinkActive="active">
+       candidate
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-link" routerLink="/dashboard/position" routerLinkActive="active">
+          position
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main content area -->
+  <div class="container-fluid p-4">
+    <router-outlet></router-outlet>
+  </div>
+</div> 
+
   

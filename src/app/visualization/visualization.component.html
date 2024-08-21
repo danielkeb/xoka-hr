@@ -1,0 +1,205 @@
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Chart, registerables } from 'chart.js';
+import { ServiceService, VisualizationData } from './service.service';
+
+Chart.register(...registerables); // Register all Chart.js modules
+
+@Component({
+  selector: 'app-user-visualization',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  template: `
+    <div *ngIf="visualizationData">
+      <h5 class="text-center mt-3">User Visualization</h5>
+      <div class="container mt-4">
+
+        <!-- Bar Chart for Roles -->
+        <div class="chart-container">
+          <h6 class="text-center">Number of Employees, Candidates, and Admins</h6>
+          <canvas #roleBarChartCanvas></canvas>
+        </div>
+
+        <!-- Pie Chart for Employee Gender -->
+        <div class="chart-container">
+          <h6 class="text-center">Employee Gender Distribution</h6>
+          <canvas #employeeGenderChartCanvas></canvas>
+        </div>
+
+        <!-- Doughnut Chart for Candidate Gender -->
+        <div class="chart-container">
+          <h6 class="text-center">Candidate Gender Distribution</h6>
+          <canvas #candidateGenderChartCanvas></canvas>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+  `,
+  styles: [`
+    .container {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f8f9fa;
+    }
+    .chart-container {
+      margin-bottom: 2rem;
+    }
+    h5, h6 {
+      color: #007bff;
+    }
+    canvas {
+      display: block;
+      height: 300px;
+      width: 100%;
+    }
+  `]
+})
+export class UserVisualizationComponent implements OnInit {
+  @ViewChild('roleBarChartCanvas', { static: true }) roleBarChartCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('employeeGenderChartCanvas', { static: true }) employeeGenderChartCanvas!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('candidateGenderChartCanvas', { static: true }) candidateGenderChartCanvas!: ElementRef<HTMLCanvasElement>;
+  
+  visualizationData: VisualizationData | null = null;
+  errorMessage: string = '';
+
+  constructor(private service: ServiceService) {}
+
+  ngOnInit(): void {
+    this.service.getUserVisualize().subscribe(
+      data => {
+        console.log('Data received:', data); // Log the data to check if it is received
+        this.visualizationData = data;
+        this.createCharts();
+      },
+      error => {
+        this.errorMessage = 'Unable to fetch visualization data';
+        console.error(error);
+      }
+    );
+  }
+
+  createCharts(): void {
+    console.log('Creating charts with data:', this.visualizationData);
+    this.createRoleBarChart();
+    this.createEmployeeGenderChart();
+    this.createCandidateGenderChart();
+  }
+  
+
+  createRoleBarChart(): void {
+    const ctx = this.roleBarChartCanvas.nativeElement.getContext('2d');
+    if (!ctx) {
+      console.error('Failed to get canvas context for roleBarChartCanvas');
+      return;
+    }
+  
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Employees', 'Candidates', 'Admins'],
+        datasets: [{
+          label: 'Number of Users',
+          data: [
+            this.visualizationData!.totalEmp,
+            this.visualizationData!.totalCandidate,
+            this.visualizationData!.totalAdmin
+          ],
+          backgroundColor: ['#007bff', '#28a745', '#ffc107'],
+          hoverBackgroundColor: ['#0056b3', '#1c7430', '#e0a800'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => `${context.dataset.label}: ${context.raw}`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            beginAtZero: true
+          },
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      },
+    });
+  }
+  
+
+  createEmployeeGenderChart(): void {
+    const ctx = this.employeeGenderChartCanvas.nativeElement.getContext('2d');
+    if (!ctx) return;
+  
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Female', 'Male'],
+        datasets: [{
+          data: [30, 70],  // Use sample data here
+          backgroundColor: ['#ff6384', '#36a2eb'],
+          hoverBackgroundColor: ['#ff6384cc', '#36a2ebcc'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => `${context.label}: ${context.raw}`,
+            },
+          },
+        },
+      },
+    });
+  }
+  
+  createCandidateGenderChart(): void {
+    const ctx = this.candidateGenderChartCanvas.nativeElement.getContext('2d');
+    if (!ctx) return;
+  
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Female', 'Male'],
+        datasets: [{
+          data: [15, 85],  // Use sample data here
+          backgroundColor: ['#ff6384', '#36a2eb'],
+          hoverBackgroundColor: ['#ff6384cc', '#36a2ebcc'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => `${context.label}: ${context.raw}`,
+            },
+          },
+        },
+      },
+    });
+  }
+  
+}

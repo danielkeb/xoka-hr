@@ -1,1 +1,5 @@
-<p>user works!</p>
+<ul class="nav nav-tabs mt-2">
+    <li class="nav-item"  *ngFor="let item of items">
+      <a class="nav-link active" [routerLink]="item.Link" routerLinkActive="active">{{item.name}}</a>
+    </li>
+  </ul>

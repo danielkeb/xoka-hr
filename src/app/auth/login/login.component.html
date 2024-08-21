@@ -32,6 +32,16 @@
               Password is required.
             </div>
           </div>
+          <div *ngIf="successMessage" class="alert alert-success mt-3">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
+            <div class="text-end mt-3">
+            <!-- <span>Don't have an account? </span> -->
+            <a routerLink="/forgot" class="btn btn-link">Forgot password</a>
+          </div>
           <div class="d-grid gap-2 mt-3">
             <button
               type="submit"
@@ -41,10 +51,7 @@
               Login
             </button>
           </div>
-          <div class="text-center mt-3">
-            <span>Don't have an account? </span>
-            <a routerLink="/register" class="btn btn-link">Sign Up</a>
-          </div>
+        
         </form>
       </div>
     </div>

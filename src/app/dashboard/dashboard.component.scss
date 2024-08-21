@@ -1,48 +1,120 @@
+// Ensure full-height sidebar
+.sidebar {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  transition: width 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
 
-@media (max-width: 600px) {
-  .sidenav-container {
-    display: block;
+  &.collapsed {
+    width: 70px;
+
+    .nav-text {
+      display: none;
+    }
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    font-size: 16px;
+
+    &:hover {
+      background-color: #495057;
+    }
+
+    &.active {
+      background-color: #343a40;
+    }
+
+    .icon-only {
+      font-size: 20px;
+      transition: font-size 0.3s ease;
+    }
+  }
+
+  .btn {
+    width: 100%;
+    text-align: left;
+    color: white;
+
+    &:hover {
+      color: #e9ecef;
+    }
+
+    &.active {
+      color: #e9ecef;
+    }
   }
 }
-#sidebar{
-  height: 90vh;
-  width: 200px;
-}
-.navbar-brand{
-  color: #e7dede;
-}
-.collapse{
-  background-color:antiquewhite;
-}
-.navbar-brand:hover{
-  color: #ffffff;
-}
-.navbar{
-  height: 100px;
-}
-a{
-  text-decoration: none;
-}
-.dropdown-menu {
-  padding: 0.5rem;
-  min-width: 150px; /* Adjust as needed */
-}
-.dropdown-item {
-  color: blue; /* You can use any color here */
+
+// Navbar style adjustments
+.navbar {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+
+  &.navbar-expand-lg {
+    .navbar-toggler {
+      margin-left: auto;
+    }
+
+    .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
+  }
 }
 
-.dropdown-item:hover {
-  color: darkblue; /* Optional: color change on hover */
+// Collapsed sidebar navbar adjustment
+.sidebar.collapsed + .navbar {
+  margin-left: 70px;
 }
 
-a{
-  color: aqua;
+// Main content area adjustments
+.container-fluid {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+
+  @media (max-width: 992px) {
+    margin-left: 70px;
+  }
 }
 
-.active-link {
-  color: green;
+// Mobile view adjustments
+@media (max-width: 992px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .navbar {
+    margin-left: 0;
+  }
+
+  .menu-icon {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1100;
+    transition: transform 0.3s ease;
+    background-color: #343a40;
+    border-radius: 50%;
+
+    &.active {
+      transform: rotate(180deg);
+    }
+  }
 }
 
-.inactive-link {
-  color: red;
+// Sidebar toggle button adjustments
+.btn-dark {
+  background-color: #343a40;
+  border: none;
+
+  &:hover {
+    background-color: #495057;
+  }
 }

@@ -14,7 +14,8 @@ import { AuthService } from './login.service';
 export class LoginComponent {
   loginForm: FormGroup;
   isLoading = false;
-  errorMessage: string | null = null;
+  errorMessage=''
+  successMessage= ''
 
   constructor(
     private fb: FormBuilder,
@@ -44,8 +45,11 @@ export class LoginComponent {
           this.isLoading = false;
           if (success) {
             this.router.navigate(['/dashboard']);
+            this.successMessage='Login successful!'
+            this.errorMessage = '';
             console.log('Login successful!');
           } else {
+            this.successMessage=''
             this.errorMessage = 'Invalid email or password.';
             console.error('Login failed!');
           }
@@ -53,6 +57,7 @@ export class LoginComponent {
         error => {
           this.isLoading = false;
           this.errorMessage = 'An error occurred. Please try again later.';
+          this.successMessage=''
           console.error('Login error:', error);
         }
       );

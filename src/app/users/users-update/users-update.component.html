@@ -1,0 +1,559 @@
+<ul class="nav nav-tabs mt-2 overflow-auto">
+  <li class="nav-item" *ngFor="let item of items">
+    <a
+      class="nav-link"
+      [routerLink]="!isUpdateDisabled(item) ? item.Link : null"
+      [class.disabled]="isUpdateDisabled(item)"
+      [attr.aria-disabled]="isUpdateDisabled(item) ? 'true' : null"
+      [routerLinkActive]="!isUpdateDisabled(item) ? 'active' : ''"
+    >
+      {{ item.name }}
+    </a>
+  </li>
+</ul>
+
+
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <form *ngIf="isUpdateMode; else registrationForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="container">
+              <div class="row">
+                <!-- User ID -->
+                <div class="col-md-4 mb-3">
+                  <label for="userId" class="form-label">User ID</label>
+                  <input
+                    type="text"
+                    id="userId"
+                    formControlName="userId"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('userId')?.invalid &&
+                        userForm.get('userId')?.touched
+                    }"
+                    placeholder="Enter User ID"
+                  />
+                  <div class="invalid-feedback">
+                    User ID is required
+                  </div>
+                </div>
+          
+                <!-- First Name -->
+                <div class="col-md-4 mb-3">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    formControlName="firstName"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('firstName')?.invalid &&
+                        userForm.get('firstName')?.touched
+                    }"
+                    placeholder="Enter your first name"
+                  />
+                  <div class="invalid-feedback">
+                    First Name is required
+                  </div>
+                </div>
+          
+                <!-- Middle Name -->
+                <div class="col-md-4 mb-3">
+                  <label for="middleName" class="form-label">Middle Name</label>
+                  <input
+                    type="text"
+                    id="middleName"
+                    formControlName="middleName"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('middleName')?.invalid &&
+                        userForm.get('middleName')?.touched
+                    }"
+                    placeholder="Enter your middle name"
+                  />
+                  <div class="invalid-feedback">
+                    Middle Name is required
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Last Name -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    formControlName="lastName"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('lastName')?.invalid &&
+                        userForm.get('lastName')?.touched
+                    }"
+                    placeholder="Enter your last name"
+                  />
+                  <div class="invalid-feedback">
+                    Last Name is required
+                  </div>
+                </div>
+          
+                <!-- Email -->
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('email')?.invalid &&
+                        userForm.get('email')?.touched
+                    }"
+                    placeholder="Enter your email"
+                  />
+                  <div class="invalid-feedback">
+                    A valid email is required
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Phone Number -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="phoneNumber" class="form-label">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    formControlName="phoneNumber"
+                    class="form-control"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+          
+                <!-- Status -->
+                <div class="col-md-6 mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select
+                    id="status"
+                    formControlName="status"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('status')?.invalid &&
+                        userForm.get('status')?.touched
+                    }"
+                  >
+                    <option value="">Select Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="suspended">Suspended</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Status is required
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Gender -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select
+                    id="gender"
+                    formControlName="gender"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('gender')?.invalid &&
+                        userForm.get('gender')?.touched
+                    }"
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Gender is required
+                  </div>
+                </div>
+          
+                <div class="col-md-6 mb-3">
+                  <label for="role" class="form-label">Role</label>
+                  <select
+                    id="role"
+                    formControlName="role"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('role')?.invalid &&
+                        userForm.get('role')?.touched
+                    }"
+                  >
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="employee">Employee</option>
+                    <option value="candidate">Candidate</option>
+                    <option value="guest">Guest</option> <!-- Add Employee Option -->
+                  </select>
+                  <div class="invalid-feedback">
+                    Role is required
+                  </div>
+                </div>
+
+
+              <!-- Age -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="age" class="form-label">Age</label>
+                  <input
+                    type="number"
+                    id="age"
+                    formControlName="age"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('age')?.invalid &&
+                        userForm.get('age')?.touched
+                    }"
+                    placeholder="Enter your age"
+                    min="18"
+                  />
+                  <div class="invalid-feedback">
+                    Age must be at least 18
+                  </div>
+                </div>
+          
+                <!-- Address -->
+                <div class="col-md-6 mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <textarea
+                    id="address"
+                    formControlName="address"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('address')?.invalid &&
+                        userForm.get('address')?.touched
+                    }"
+                    placeholder="Enter your address"
+                  ></textarea>
+                  <div class="invalid-feedback">
+                    Address is required
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Image -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="image" class="form-label">Image</label>
+                  <input
+                    type="file"
+                    id="image"
+                    class="form-control"
+                    (change)="onImageChange($event)"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('image')?.invalid && userForm.get('image')?.touched
+                    }"
+                  />
+                  <div class="invalid-feedback">
+                    Image is required
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Success/Error Messages -->
+              <div class="alert alert-success mt-3" *ngIf="successMessage">
+                {{ successMessage }}
+              </div>
+              <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+                {{ errorMessage }}
+              </div>
+          
+              <!-- Submit Button -->
+              <div class="d-flex justify-content-center mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Update Users
+                </button>
+              </div>
+            </div>
+          </div>
+          </form>
+          
+
+          <ng-template #registrationForm>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegistration()">
+              <div class="row">
+                <!-- User ID -->
+                <div class="col-md-6 mb-3">
+                  <label for="userId" class="form-label">User ID</label>
+                  <input
+                    type="text"
+                    id="userId"
+                    formControlName="userId"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('userId')?.invalid && registerForm.get('userId')?.touched
+                    }"
+                    placeholder="Enter User ID"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('userId')?.errors?.['required']">
+                    User ID is required
+                  </div>
+                  
+                </div>
+          
+                <!-- First Name -->
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    formControlName="firstName"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched
+                    }"
+                    placeholder="Enter your first name"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('firstName')?.errors?.['required']">
+                    First Name is required
+                  </div>
+                </div>
+
+                <!-- middle Name -->
+                <div class="col-md-6 mb-3">
+                  <label for="middleName" class="form-label">Middle Name</label>
+                  <input
+                    type="text"
+                    id="middleName"
+                    formControlName="middleName"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('middleName')?.invalid &&
+                        userForm.get('middleName')?.touched
+                    }"
+                    placeholder="Enter your middle name"
+                  />
+                  <div class="invalid-feedback">
+                    Middle Name is required
+                  </div>
+                </div>
+          
+                <!-- Last Name -->
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    formControlName="lastName"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched
+                    }"
+                    placeholder="Enter your last name"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('lastName')?.errors?.['required']">
+                    Last Name is required
+                  </div>
+                </div>
+          
+                <!-- Email -->
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched
+                    }"
+                    placeholder="Enter your email"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['required']">
+                    Email is required
+                  </div>
+                  <div class="invalid-feedback" *ngIf="registerForm.get('email')?.errors?.['email']">
+                    A valid email is required
+                  </div>
+                </div>
+          
+                <!-- Phone Number -->
+                <div class="col-md-6 mb-3">
+                  <label for="phoneNumber" class="form-label">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    formControlName="phoneNumber"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched
+                    }"
+                    placeholder="Enter your phone number"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('phoneNumber')?.errors?.['required']">
+                    Phone Number is required
+                  </div>
+                </div>
+          
+                <!-- Status -->
+                <div class="col-md-6 mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select
+                    id="status"
+                    formControlName="status"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('status')?.invalid && registerForm.get('status')?.touched
+                    }"
+                  >
+                    <option value="">Select Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="suspended">Suspended</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="registerForm.get('status')?.errors?.['required']">
+                    Status is required
+                  </div>
+                </div>
+          
+                <!-- Gender -->
+                <div class="col-md-6 mb-3">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select
+                    id="gender"
+                    formControlName="gender"
+                    class="form-select"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('gender')?.invalid && registerForm.get('gender')?.touched
+                    }"
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div class="invalid-feedback" *ngIf="registerForm.get('gender')?.errors?.['required']">
+                    Gender is required
+                  </div>
+                </div>
+          
+               <!-- Role -->
+<div class="col-md-6 mb-3">
+  <label for="role" class="form-label">Role</label>
+  <select
+    id="role"
+    formControlName="role"
+    class="form-select"
+    [ngClass]="{
+      'is-invalid':
+        registerForm.get('role')?.invalid &&
+        registerForm.get('role')?.touched
+    }"
+  >
+    <option value="">Select Role</option>
+    <option value="admin">Admin</option>
+    <option value="employee">Employee</option>
+    <option value="candidate">Candidate</option>
+    <option value="guest">Guest</option> <!-- Add Employee Option -->
+  </select>
+  <div class="invalid-feedback">
+    Role is required
+  </div>
+</div>
+                  <!-- Age -->
+                <div class="col-md-6 mb-3">
+                  <label for="age" class="form-label">Age</label>
+                  <input
+                    type="number"
+                    id="age"
+                    formControlName="age"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('age')?.invalid && registerForm.get('age')?.touched
+                    }"
+                    placeholder="Enter your age"
+                    min="18"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('age')?.errors?.['required']">
+                    Age is required
+                  </div>
+                  <div class="invalid-feedback" *ngIf="registerForm.get('age')?.errors?.['min']">
+                    Age must be at least 18
+                  </div>
+                </div>
+          
+                <!-- Address -->
+                <div class="col-md-6 mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <textarea
+                    id="address"
+                    formControlName="address"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('address')?.invalid && registerForm.get('address')?.touched
+                    }"
+                    placeholder="Enter your address"
+                  ></textarea>
+                  <div class="invalid-feedback" *ngIf="registerForm.get('address')?.errors?.['required']">
+                    Address is required
+                  </div>
+                </div>
+          
+                <!-- Image -->
+                <div class="col-md-6 mb-3">
+                  <label for="image" class="form-label">Image</label>
+                  <input
+                    type="file"
+                    id="image"
+                    class="form-control"
+                    (change)="onFileChange($event)"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('image')?.invalid && registerForm.get('image')?.touched
+                    }"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('image')?.errors?.['required']">
+                    Image is required
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Success/Error Messages -->
+              <div class="alert alert-success mt-3" *ngIf="successMessage">
+                {{ successMessage }}
+              </div>
+              <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+                {{ errorMessage }}
+              </div>
+          
+              <!-- Submit Button -->
+              <div class="d-flex justify-content-center mt-3">
+                <button
+                  type="submit" 
+                  class="btn btn-primary"
+                >
+                  Register User
+                </button>
+              </div>
+            </form>
+          </ng-template>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

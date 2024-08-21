@@ -1,90 +1,91 @@
-<div class="container mt-5" style="max-width: 800px;">
-  <h3>Add Employee</h3>
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <div class="card">
-    
-        <div class="card-body">
-          <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-              <!-- Employee Position -->
-              <div class="col-md-6 mb-3">
-                <label for="position" class="form-label">Employee Position</label>
-                <input
-                  type="text"
-                  id="position"
-                  formControlName="position"
-                  class="form-control"
-                  [ngClass]="{'is-invalid': employeeForm.get('position')?.invalid && employeeForm.get('position')?.touched}"
-                  placeholder="Enter Employee Position"
-                />
-                <div class="invalid-feedback">
-                  Employee position is required.
-                </div>
-              </div>
-
-              <!-- Years of Experience -->
-              <div class="col-md-6 mb-3">
-                <label for="experience" class="form-label">Years of Experience</label>
-                <input
-                  type="number"
-                  id="experience"
-                  formControlName="experience"
-                  class="form-control"
-                  [ngClass]="{'is-invalid': employeeForm.get('experience')?.invalid && employeeForm.get('experience')?.touched}"
-                  placeholder="Enter Years of Experience"
-                />
-                <div class="invalid-feedback">
-                  Years of Experience is required and must be a valid number.
-                </div>
-              </div>
-
-              <!-- Departement -->
-              <div class="col-md-6 mb-3">
-                <label for="departement" class="form-label">Departement</label>
-                <input
-                  type="text"
-                  id="departement"
-                  formControlName="departement"
-                  class="form-control"
-                  [ngClass]="{'is-invalid': employeeForm.get('departement')?.invalid && employeeForm.get('departement')?.touched}"
-                  placeholder="Enter Departement"
-                />
-                <div class="invalid-feedback">
-                  A valid Departement is required.
-                </div>
-              </div>
-
-              <!-- Employee Salary -->
-              <div class="col-md-6 mb-3">
-                <label for="salaryId" class="form-label">Employee Salary</label>
-                <input
-                  type="number"
-                  id="salaryId"
-                  formControlName="salaryId"
-                  class="form-control"
-                  [ngClass]="{'is-invalid': employeeForm.get('salaryId')?.invalid && employeeForm.get('salaryId')?.touched}"
-                  placeholder="Enter Employee Salary"
-                />
-                <div class="invalid-feedback">
-                  Employee Salary is required and must be a valid number.
-                </div>
-              </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="d-grid gap-2 col-6 mx-auto mt-3">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                [disabled]="employeeForm.invalid"
-              >
-                Register
-              </button>
-            </div>
-          </form>
+<!-- <app-user></app-user> -->
+<div class="container mt-4">
+  <div class="form-container">
+    <form [formGroup]="positionForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col-12 col-md-6 col-lg-4">
+          <label for="positionId">Position Id</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="positionId"
+            id="positionId"
+            [ngClass]="{
+              'is-invalid': positionForm.get('positionId')?.invalid && positionForm.get('positionId')?.touched
+            }"
+            placeholder="Position Id"
+          />
+          <!-- Error message for positionId -->
+          <div
+            *ngIf="positionForm.get('positionId')?.invalid && positionForm.get('positionId')?.touched"
+            class="invalid-feedback"
+          >
+            Position Id is required.
+          </div>
+        </div>
+        <div class="form-group col-12 col-md-6 col-lg-4">
+          <label for="name">Position Name</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            id="name"
+            placeholder="Position Name"
+          />
+          <!-- Error message for name -->
+          <div
+            *ngIf="positionForm.get('name')?.invalid && positionForm.get('name')?.touched"
+            class="invalid-feedback"
+          >
+            Position Name is required.
+          </div>
         </div>
       </div>
-    </div>
+      <div class="form-row">
+        <div class="form-group col-12 col-md-6 col-lg-4">
+          <label for="workArea">Work Area</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="workArea"
+            id="workArea"
+            placeholder="Work Area"
+          />
+          <!-- Error message for workArea -->
+          <div
+            *ngIf="positionForm.get('workArea')?.invalid && positionForm.get('workArea')?.touched"
+            class="invalid-feedback"
+          >
+            Work Area is required.
+          </div>
+        </div>
+        <div class="form-group col-12 col-md-6 col-lg-4">
+          <label for="employeeId">Employee Id</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="employeeId"
+            id="employeeId"
+            placeholder="Employee Id"
+          />
+          <!-- Error message for employeeId -->
+          <div
+            *ngIf="positionForm.get('employeeId')?.invalid && positionForm.get('employeeId')?.touched"
+            class="invalid-feedback"
+          >
+            Employee Id is required.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success mt-3">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+        {{ errorMessage }}
+      </div>
+      <div class="form-group mt-4">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
   </div>
 </div>

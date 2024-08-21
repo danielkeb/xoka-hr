@@ -1,0 +1,105 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Attendance Records</h2>
+  
+    <!-- Search Input -->
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by employee name"
+        [(ngModel)]="searchTerm"
+        (input)="searchAttendances()"
+      />
+    </div>
+  
+    <!-- Add Attendance Form -->
+    <div class="card my-4" *ngIf="tableDisplayEmp">
+      <div class="card-header">
+        Add New Attendance
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="addAttendance()">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Employee ID"
+              [(ngModel)]="newAttendance.employeeId"
+              name="employeeId"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="newAttendance.date"
+              name="date"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="time"
+              class="form-control"
+              [(ngModel)]="newAttendance.checkInTime"
+              name="checkInTime"
+              placeholder="Check-In Time"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="time"
+              class="form-control"
+              [(ngModel)]="newAttendance.checkOutTime"
+              name="checkOutTime"
+              placeholder="Check-Out Time"
+            />
+          </div>
+          <div class="form-group">
+            <select
+              class="form-control"
+              [(ngModel)]="newAttendance.status"
+              name="status"
+              required
+            >
+              <option value="">Select Status</option>
+              <option *ngFor="let status of attendanceStatuses" [value]="status">
+                {{ status }}
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Attendance</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Attendance List -->
+    <table class="table table-bordered" *ngIf="tableDisplay">
+      <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>Date</th>
+          <th>Check-In Time</th>
+          <th>Check-Out Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let attendance of attendances">
+          <td>{{ attendance.employeeId }}</td>
+          <td>{{ attendance.date | date }}</td>
+          <td>{{ attendance.checkInTime | date:'shortTime' }}</td>
+          <td>{{ attendance.checkOutTime | date:'shortTime' }}</td>
+          <td>{{ attendance.status }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteAttendance(attendance.employeeId)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

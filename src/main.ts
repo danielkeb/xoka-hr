@@ -6,7 +6,8 @@ import { appConfig } from './app/app.config';
 bootstrapApplication(AppComponent, {
   providers: [
     ...appConfig.providers,
-    BrowserAnimationsModule // Add this here
+    BrowserAnimationsModule,
   ]
+  
 })
   .catch((err) => console.error(err));

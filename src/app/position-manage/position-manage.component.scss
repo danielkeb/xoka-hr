@@ -1,0 +1,59 @@
+.form-control.ng-touched.ng-invalid {
+    border-color: #dc3545;
+  }
+  
+  .invalid-feedback {
+    display: block;
+    color: #dc3545;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center; /* Aligns the button to the right */
+  }
+  .form-container {
+    width: 50%;
+    height: 40vh;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the form */
+  }
+
+  form{
+  justify-content: center; /* Center horizontally */
+  align-items: center;     /* Center vertically */
+  }
+
+  // position-manage.component.scss
+
+.edit-form {
+  border: 1px solid #ddd;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin-top: 20px;
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  button {
+    margin-right: 10px;
+  }
+}
+
+.table {
+  th, td {
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+.pagination {
+  margin-top: 20px;
+}
+

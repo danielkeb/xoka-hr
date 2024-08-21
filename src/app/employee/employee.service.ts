@@ -6,11 +6,9 @@ import { catchError } from 'rxjs/operators';
 
 
 // Define the interface for AuthDto
-export interface Employee {
-  position  :    String
-  departement  : String
-  salaryId: String
-  experience   : String
+export interface Employee{
+  employeeId: string;
+  experience: string;
 }
 
 // Injectable service for Employee

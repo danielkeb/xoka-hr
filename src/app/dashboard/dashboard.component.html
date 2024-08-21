@@ -1,54 +1,100 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-black">
-  <a class="navbar-brand" href="#">Dashboard</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    (click)="toggleSidebar()"
+  >
+    <span
+      class="navbar-toggler-icon"
+      [ngClass]="{
+        'bi bi-chevron-double-left': !isCollapsed,
+        'bi bi-chevron-double-right': isCollapsed
+      }"
+    ></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ms-auto mr-2">
+    <ul class="navbar-nav ms-auto me-2">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="bi bi-person-circle me-2"></i>User
-        </a>
-        <div class="dropdown-menu p-2" aria-labelledby="navbarDropdown">
-          <a
-          class="dropdown-item"
-          routerLink="#"
-          [ngClass]="{ 'active-link': isActive, 'inactive-link': !isActive }"
-          (click)="toggleActive()"
+        <a
+          class="nav-link dropdown-toggle text-white"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
         >
-          Profile
+          <i class="bi bi-person-circle me-2"></i>
+          {{ user?.name || 'User' }} <br> {{ user?.role || 'Role' }}
         </a>
-        
-         
+        <div class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="navbarDropdown">
+          <a
+            class="dropdown-item"
+            [routerLink]="['dashboard/profile, userId']"
+            [ngClass]="{
+              'active-link': isActive,
+              'inactive-link': !isActive
+            }"
+            (click)="toggleActive()"
+          >
+            Profile
+          </a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" routerLink="#">signout</a>
+          <a class="dropdown-item" (click)="logout()">Signout</a>
         </div>
       </li>
-     
     </ul>
-  
   </div>
 </nav>
 
-
 <!-- Side navigation drawer -->
-<div class="d-flex max-width">
-    <div class="bg-dark border-right" id="sidebar">
-      <ul class="nav flex-column">
-        <li class="nav-item" *ngFor="let item of items">
-          <a class="btn btn-link" [routerLink]="item.link" routerLinkActive="active">
-            {{ item.link.split('/').pop() | titlecase }}
-          </a>
-        </li>
-      </ul>
-    </div>
-  
+<div class="d-flex">
+  <div
+    class="bg-dark border-right sidebar"
+    [ngClass]="{ 'collapsed': isCollapsed }"
+    id="sidebar"
+  >
+    <!-- Sidebar Toggle Button -->
+    <button
+      class="btn btn-dark d-lg-none mb-3 ms-3 mt-3"
+      (click)="toggleSidebar()"
+    >
+      <i class="bi bi-list"></i>
+    </button>
 
+    <!-- Sidebar Links -->
+    <ul class="nav flex-column">
+      <li class="nav-item" *ngFor="let item of items">
+        <a
+          class="nav-link text-white"
+          [routerLink]="item.link"
+          routerLinkActive="active"
+        >
+          <span
+            [innerHTML]="item.icon"
+            class="me-2"
+            [ngClass]="{ 'icon-only': isCollapsed }"
+          ></span>
+          <span *ngIf="!isCollapsed" class="nav-text">
+            {{ item.name }}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
 
   <!-- Main content area -->
   <div class="container-fluid p-4">
     <router-outlet></router-outlet>
+    <div *ngIf="showVisualization">
+      <app-user-visualization></app-user-visualization>
+    </div>
   </div>
-</div> 
-
+</div>

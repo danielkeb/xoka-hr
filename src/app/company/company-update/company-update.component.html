@@ -1,0 +1,272 @@
+<ul class="nav nav-tabs mt-2 overflow-auto">
+  <li class="nav-item" *ngFor="let item of items">
+    <a
+      class="nav-link"
+      [routerLink]="!isUpdateDisabled(item) ? item.Link : null"
+      [class.disabled]="isUpdateDisabled(item)"
+      [attr.aria-disabled]="isUpdateDisabled(item) ? 'true' : null"
+      [routerLinkActive]="!isUpdateDisabled(item) ? 'active' : ''"
+    >
+      {{ item.name }}
+    </a>
+  </li>
+</ul>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <form *ngIf="isUpdateMode; else registrationForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="companyId" class="form-label">User ID</label>
+                <input
+                  type="text"
+                  id="companyId"
+                  formControlName="companyId"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      userForm.get('companyId')?.invalid &&
+                      userForm.get('companyId')?.touched
+                  }"
+                  placeholder="Enter company ID"
+                />
+                <div class="invalid-feedback">
+                  Company ID is required
+                </div>
+              </div>
+              <!-- First Name -->
+              <div class="col-md-6 mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input
+                  type="text"
+                  id="address"
+                  formControlName="address"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      userForm.get('address')?.invalid &&
+                      userForm.get('address')?.touched
+                  }"
+                  placeholder="Enter your address"
+                />
+                <div class="invalid-feedback">
+                  Address is required
+                </div>
+              </div>
+            
+           
+             
+
+              <!-- Phone Number -->
+              <div class="col-md-6 mb-3">
+                <label for="industry" class="form-label">Company Stream</label>
+                <input
+                  type="tel"
+                  id="industry"
+                  formControlName="industry"
+                  class="form-control"
+                  placeholder="Enter company focus area"
+                />
+              </div>
+
+            
+
+              <!-- contact -->
+              <div class="col-md-6 mb-3">
+                <label for="contact" class="form-label">contact</label>
+                <textarea
+                  id="contact"
+                  formControlName="contact"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      userForm.get('contact')?.invalid &&
+                      userForm.get('contact')?.touched
+                  }"
+                  placeholder="Enter your contact"
+                ></textarea>
+                <div class="invalid-feedback">
+                  contact is required
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="logo" class="form-label">logo</label>
+                <input
+                  type="file"
+                  id="logo"
+                  class="form-control"
+                  (change)="onlogoChange($event)"
+                  [ngClass]="{
+                    'is-invalid':
+                      userForm.get('logo')?.invalid && userForm.get('logo')?.touched
+                  }"
+                />
+                <div class="invalid-feedback">
+                  logo is required
+                </div>
+              </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div class="alert alert-success mt-3" *ngIf="successMessage">
+              {{ successMessage }}
+            </div>
+            <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Submit Button -->
+           <div class="d-flex justify-content-center mt-3">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="userForm.invalid"
+          >
+            Update Company
+          </button>
+          </div>
+
+          </form>
+
+          <ng-template #registrationForm>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegistration()">
+              <div class="row">
+                <!-- User ID -->
+                <div class="col-md-6 mb-3">
+                  <label for="companyId" class="form-label">company ID</label>
+                  <input
+                    type="text"
+                    id="companyId"
+                    formControlName="companyId"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('companyId')?.invalid && registerForm.get('companyId')?.touched
+                    }"
+                    placeholder="Enter User ID"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('companyId')?.errors?.['required']">
+                    company ID is required
+                  </div>
+                </div>
+        
+          
+                <!-- Last Name -->
+                <div class="col-md-6 mb-3">
+                  <label for="name" class="form-label">Company Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    formControlName="name"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('name')?.invalid && registerForm.get('name')?.touched
+                    }"
+                    placeholder="Enter your company name"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('name')?.errors?.['required']">
+                    company Name is required
+                  </div>
+                </div>
+          
+    
+          
+                <!-- Phone Number -->
+                <div class="col-md-6 mb-3">
+                  <label for="industry" class="form-label">Industry </label>
+                  <input
+                    type="tel"
+                    id="industry"
+                    formControlName="industry"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('industry')?.invalid && registerForm.get('industry')?.touched
+                    }"
+                    placeholder="Enter company focus area"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('industry')?.errors?.['required']">
+                    Company industry is required
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="address" class="form-label">Address</label>
+                  <input
+                    type="text"
+                    id="address"
+                    formControlName="address"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        userForm.get('address')?.invalid &&
+                        userForm.get('address')?.touched
+                    }"
+                    placeholder="Enter your address"
+                  />
+                  <div class="invalid-feedback">
+                    Address is required
+                  </div>
+                </div>
+                <!-- contact -->
+                <div class="col-md-6 mb-3">
+                  <label for="contact" class="form-label">contact</label>
+                  <textarea
+                    id="contact"
+                    formControlName="contact"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('contact')?.invalid && registerForm.get('contact')?.touched
+                    }"
+                    placeholder="Enter your contact"
+                  ></textarea>
+                  <div class="invalid-feedback" *ngIf="registerForm.get('contact')?.errors?.['required']">
+                    contact is required
+                  </div>
+                </div>
+          
+                <!-- logo -->
+                <div class="col-md-6 mb-3">
+                  <label for="logo" class="form-label">Logo</label>
+                  <input
+                    type="file"
+                    id="logo"
+                    class="form-control"
+                    (change)="onFileChange($event)"
+                    [ngClass]="{
+                      'is-invalid': registerForm.get('logo')?.invalid && registerForm.get('logo')?.touched
+                    }"
+                  />
+                  <div class="invalid-feedback" *ngIf="registerForm.get('logo')?.errors?.['required']">
+                    logo is required
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Success/Error Messages -->
+              <div class="alert alert-success mt-3" *ngIf="successMessage">
+                {{ successMessage }}
+              </div>
+              <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+                {{ errorMessage }}
+              </div>
+          
+              <!-- Submit Button -->
+              <div class="d-flex justify-content-center mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                >
+                  Register Company
+                </button>
+              </div>
+            </form>
+          </ng-template>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

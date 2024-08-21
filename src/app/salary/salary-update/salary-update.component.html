@@ -1,0 +1,187 @@
+<ul class="nav nav-tabs mt-2 overflow-auto">
+  <li class="nav-item" *ngFor="let item of items">
+    <a
+      class="nav-link"
+      [routerLink]="!isUpdateDisabled(item) ? item.Link : null"
+      [class.disabled]="isUpdateDisabled(item)"
+      [attr.aria-disabled]="isUpdateDisabled(item) ? 'true' : null"
+      [routerLinkActive]="!isUpdateDisabled(item) ? 'active' : ''"
+    >
+      {{ item.name }}
+    </a>
+  </li>
+</ul>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <form *ngIf="isUpdateMode; else registrationForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="salaryId" class="form-label">Salary ID</label>
+                <input
+                  type="text"
+                  id="salaryId"
+                  formControlName="salaryId"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      userForm.get('salaryId')?.invalid &&
+                      userForm.get('salaryId')?.touched
+                  }"
+                  placeholder="Enter Salary ID"
+                />
+                <div class="invalid-feedback">
+                  Salary ID is required
+                </div>
+              </div>
+              <!-- First amount -->
+              <div class="col-md-6 mb-3">
+                <label for="amount" class="form-label">Amount</label>
+                <input
+                  type="number"
+                  id="amount"
+                  formControlName="amount"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      userForm.get('amount')?.invalid &&
+                      userForm.get('amount')?.touched
+                  }"
+                  placeholder="Enter salary amount"
+                />
+                <div class="invalid-feedback">
+                  Salary amount is required
+                </div>
+              </div>
+              <!-- middle amount  -->
+              <div class="col-md-6 mb-3">
+                <label for="employeeId" class="form-label">Employee Id</label>
+                <input
+                  type="text"
+                  id="employeeId"
+                  formControlName="employeeId"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      userForm.get('employeeId')?.invalid &&
+                      userForm.get('employeeId')?.touched
+                  }"
+                  placeholder="Enter employee ID"
+                />
+                <div class="invalid-feedback">
+                  Employee ID is required
+                </div>
+              </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div class="alert alert-success mt-3" *ngIf="successMessage">
+              {{ successMessage }}
+            </div>
+            <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+              {{ errorMessage }}
+            </div>
+
+            <!-- Submit Button -->
+           <div class="d-flex justify-content-center mt-3">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="userForm.invalid"
+          >
+            Update Salary
+          </button>
+          </div>
+
+          </form>
+
+          <ng-template #registrationForm>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmitRegistration()">
+              <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="salaryId" class="form-label">Salary ID</label>
+                <input
+                  type="text"
+                  id="salaryId"
+                  formControlName="salaryId"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      registerForm.get('salaryId')?.invalid &&
+                      registerForm.get('salaryId')?.touched
+                  }"
+                  placeholder="Enter Salary ID"
+                />
+                <div class="invalid-feedback">
+                  Salary is required
+                </div>
+              </div>
+              <!-- First amount -->
+              <div class="col-md-6 mb-3">
+                <label for="amount" class="form-label">Salary amount</label>
+                <input
+                  type="number"
+                  id="amount"
+                  formControlName="amount"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      registerForm.get('amount')?.invalid &&
+                      registerForm.get('amount')?.touched
+                  }"
+                  placeholder="Enter your first amount"
+                />
+                <div class="invalid-feedback">
+                  Salary amount is required
+                </div>
+              </div>
+              <!-- middle amount  -->
+              <div class="col-md-6 mb-3">
+                <label for="employeeId" class="form-label">Employee Id</label>
+                <input
+                  type="text"
+                  id="employeeId"
+                  formControlName="employeeId"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      registerForm.get('employeeId')?.invalid &&
+                      registerForm.get('employeeId')?.touched
+                  }"
+                  placeholder="Enter employee ID"
+                />
+                <div class="invalid-feedback">
+                  Employee ID is required
+                </div>
+              </div>
+            </div>
+          
+              <!-- Success/Error Messages -->
+              <div class="alert alert-success mt-3" *ngIf="successMessage">
+                {{ successMessage }}
+              </div>
+              <div class="alert alert-danger mt-3" *ngIf="errorMessage">
+                {{ errorMessage }}
+              </div>
+          
+              <!-- Submit Button -->
+              <div class="d-flex justify-content-center mt-3">
+                <button
+                  type="submit" [disabled]="registerForm.invalid"
+                  class="btn btn-primary"
+                >
+                  Add Salary
+                </button>
+              </div>
+            </form>
+          </ng-template>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
